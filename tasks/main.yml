@@ -1,0 +1,18 @@
+---
+
+- name: Get MongoDB apt repo key.
+  apt_key: keyserver=keyserver.ubuntu.com
+           id=0C49F3730359A14518585931BC711F9BA15703C6
+           state=present
+
+- name: Add APT repository
+  apt_repository: repo='deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse'
+                  update_cache=yes
+
+- name: Install MongoDB
+  apt: name=mongodb-org
+
+- name: Start MongoDB
+  service: name=mongod
+           state=started
+           enabled=yes
